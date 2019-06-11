@@ -1,0 +1,5 @@
+1. linux底层的一些特殊标记
+EVENT2_EXPORT_SYMBOL XXX; 或者 EXPORT_SYMBOL xxx;
+表示将xxx这个符号导出当前文件下使用
+
+

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="HPServer" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/HPServer" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/HPServer" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+		</Compiler>
+		<Unit filename="RRMode.cpp" />
+		<Unit filename="RRMode.log" />
+		<Unit filename="config_file.h" />
+		<Unit filename="defines.h" />
+		<Unit filename="global_settings.h" />
+		<Unit filename="init_configure.cc" />
+		<Unit filename="init_configure.h" />
+		<Unit filename="main.cpp" />
+		<Unit filename="makefile_back" />
+		<Unit filename="master_thread.cc" />
+		<Unit filename="master_thread.h" />
+		<Unit filename="socket_wrapper.h" />
+		<Unit filename="threadSafe_container.h" />
+		<Unit filename="utils.h" />
+		<Unit filename="worker_threads.cc" />
+		<Unit filename="worker_threads.h" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

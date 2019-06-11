@@ -1,0 +1,12 @@
+2019-05-23 10:58:08,086 [0x7ff8e6d971c0] INFO  RRMode - Run...
+2019-05-23 10:58:08,087 [0x7ff8e6d971c0] INFO  RRMode - ******remote.listen.port=12006******
+2019-05-23 10:58:08,087 [0x7ff8e6d971c0] INFO  RRMode - ******worker.thread.num =4******
+2019-05-23 10:58:08,087 [0x7ff8e6d971c0] INFO  RRMode - ******client.heartbeat.timeout.s =1200******
+2019-05-23 10:58:08,087 [0x7ff8e6d971c0] TRACE RRMode - The libevent version is 2.1.8-stable
+2019-05-23 10:58:08,087 [0x7ff8e6d971c0] INFO  RRMode - Initializes worker threads...
+2019-05-23 10:58:08,087 [0x7ff8e6d971c0] INFO  RRMode - Create threads success. we hava done all the libevent setup.
+2019-05-23 10:58:08,088 [0x7ff8e6d971c0] INFO  RRMode - CMasterThread::Run:Master thread has start...
+2019-05-23 10:58:12,724 [0x7ff8e42a3700] TRACE RRMode - CWorkerThread::ReadPipeCb thread id = 140706956588800
+2019-05-23 10:58:18,801 [0x7ff8e42a3700] TRACE RRMode - CWorkerThread::conn_close sfd = 28
+2019-05-23 10:58:21,825 [0x7ff8e3aa2700] TRACE RRMode - CWorkerThread::ReadPipeCb thread id = 140706948196096
+2019-05-23 10:58:27,919 [0x7ff8e3aa2700] TRACE RRMode - CWorkerThread::conn_close sfd = 28

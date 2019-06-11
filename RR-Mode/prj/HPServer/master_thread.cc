@@ -31,7 +31,7 @@ bool CMasterThread::CheckLibeventVersion()
 	const char* libevent_version = event_get_version();
 	// 断言非空
 	assert(libevent_version != NULL);
-	
+
 	LOG4CXX_TRACE(g_logger, "The libevent version is " << libevent_version);
 	// 判断主版本号是否为2
 	if (strncmp(libevent_version, "2", 1) == 0)
@@ -48,9 +48,9 @@ bool CMasterThread::InitMasterThread()
 		LOG4CXX_ERROR(g_logger, "CMasterThread::InitMasterThread:The libevent version Require at  2.0.*");
 		return false;
 	}
-	// ？
+	// 申请到一个新的事件管理器
 	main_base_ = event_base_new();
-
+    // 断言申请成功，如果失败
 	assert(main_base_ != NULL);
 
 	/* 监听来自客户端的连接 */
@@ -126,6 +126,7 @@ void CMasterThread::AccepCb(evutil_socket_t listen_socket, short event, void* ar
 
 bool CMasterThread::InitRemoteListenSocket(evutil_socket_t& listen_socket)
 {
+    // 获取监听套接字
 	listen_socket = socket(AF_INET, SOCK_STREAM, 0);
 	if (listen_socket < 0)
 	{
@@ -134,6 +135,9 @@ bool CMasterThread::InitRemoteListenSocket(evutil_socket_t& listen_socket)
 	}
 
 	int flags = 1;
+	// fs, level, optnamem , optval, optlen
+	// level一般设为SOL_SOCKET，表示通用socket选项‘’
+    //  SO_REUSEADDR表示本地地址复用选项
 	if (setsockopt(listen_socket, SOL_SOCKET, SO_REUSEADDR, (void *) &flags, sizeof(flags)) != 0)
 	{
 		LOG4CXX_ERROR(g_logger, "CMasterThread::InitRemoteListenSocket:setsockopt SO_REUSEADDR error = " << strerror(errno));
@@ -141,12 +145,14 @@ bool CMasterThread::InitRemoteListenSocket(evutil_socket_t& listen_socket)
 		return false;
 	}
 
+	// level设为IPPROTO_TCP用于获得或者设置TCP协议层的一些参数。TCP——NODELA表示禁止agle算法
 	if (setsockopt(listen_socket, IPPROTO_TCP, TCP_NODELAY, (void *) &flags, sizeof(flags)) != 0)
 	{
 		LOG4CXX_ERROR(g_logger, "CMasterThread::InitRemoteListenSocket:setsockopt TCP_NODELAY error = " << strerror(errno));
 		close(listen_socket);
 		return false;
 	}
+	// 下面就算经典的建立服务器结构，服务器绑定套接字结构
 
 	sockaddr_in servaddr;
 	bzero(&servaddr, sizeof(servaddr));

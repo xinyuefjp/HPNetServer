@@ -3,17 +3,17 @@
 // Richard J. Wagner  v2.1  24 May 2004  wagnerr@umich.edu
 
 // Copyright (c) 2004 Richard J. Wagner
-// 
+//
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to
 // deal in the Software without restriction, including without limitation the
 // rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
 // sell copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
-// 
+//
 // The above copyright notice and this permission notice shall be included in
 // all copies or substantial portions of the Software.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -24,12 +24,12 @@
 
 // Typical usage
 // -------------
-// 
+//
 // Given a configuration file "settings.inp":
 //   atoms  = 25
 //   length = 8.0  # nanometers
 //   name = Reece Surcher
-// 
+//
 // Named values are read in various ways, with or without default values:
 //   ConfigFile config( "settings.inp" );
 //   int atoms = config.read<int>( "atoms" );
@@ -37,7 +37,7 @@
 //   string author, title;
 //   config.readInto( author, "name" );
 //   config.readInto( title, "title", string("Untitled") );
-// 
+//
 // See file example.cpp for more examples.
 
 #ifndef SECPLATFORM_COMMON_CONFIGFILE_H
@@ -82,10 +82,10 @@ public:
         std::locale old_locale = std::locale::global(std::locale(""));
 	// 定义读取文件的io流对象，文件名filename.c_str()
 	    std::ifstream in( filename.c_str() );
-	// 拷贝构造，设在全局的编码风格    
+	// 拷贝构造，设在全局的编码风格
         std::locale::global(old_locale);
     	// 如果创建文件读取对象失败，就抛出错误
-	    if( !in ) throw file_not_found( filename ); 
+	    if( !in ) throw file_not_found( filename );
     	// 文件读取对象创建成功，就将内容读取到当前对象（该类重载过 >> 运算符)
 	    in >> (*this);
     }
@@ -96,15 +96,16 @@ public:
     {
 	    // Construct a ConfigFile without a file; empty
     }
-	
+
 	// Search for key and read value or optional default valu	// 普通类内使用模板函数，学到了
-	// 由键、值、来搜索数据
+
+	// 由键、值、来搜索数据,即搜索键对应的值，重载的函数时当没找到该键值时，使用第二个参数作为键值
 	template<class T> T read( const std::string& key ) const;  // call as read<T>
 	template<class T> T read( const std::string& key, const T& value ) const;
 	template<class T> bool readInto( T& var, const std::string& key ) const;
 	template<class T>
 	bool readInto( T& var, const std::string& key, const T& value ) const;
-	
+
 	// Modify keys and values
 	template<class T> void add( std::string key, const T& value );
 	// 删除键值对
@@ -124,22 +125,22 @@ public:
 	    return ( p != myContents.end() );
     }
 
-	
+
 	// Check or change configuration syntax
 	// 获取私有属性
 	std::string getDelimiter() const { return myDelimiter; }
 	std::string getComment() const { return myComment; }
 	std::string getSentry() const { return mySentry; }
 	std::string setDelimiter( const std::string& s )
-		{ std::string old = myDelimiter;  myDelimiter = s;  return old; }  
+		{ std::string old = myDelimiter;  myDelimiter = s;  return old; }
 	std::string setComment( const std::string& s )
 		{ std::string old = myComment;  myComment = s;  return old; }
-	
+
 	// Write or read configuration
 	// 重载 <<和>>运算符
 	friend std::ostream& operator<<( std::ostream& os, const ConfigFile& cf );
 	friend std::istream& operator>>( std::istream& is, ConfigFile& cf );
-	
+
 protected:
 	template<class T> static std::string T_as_string( const T& t );
 	template<class T> static T string_as_T( const std::string& s );
@@ -308,9 +309,9 @@ inline std::istream& operator>>( std::istream& is, ConfigFile& cf )
 	const std::string& comm   = cf.myComment;    // comment
 	const std::string& sentry = cf.mySentry;     // end of file sentry
 	const pos skip = delim.length();        // length of separator
-	
+
 	std::string nextline = "";  // might need to read ahead to see where value ends
-	
+
 	while( is || nextline.length() > 0 )
 	{
 		// Read an entire line at a time
@@ -324,13 +325,13 @@ inline std::istream& operator>>( std::istream& is, ConfigFile& cf )
 		{
 			std::getline( is, line );
 		}
-		
+
 		// Ignore comments
 		line = line.substr( 0, line.find(comm) );
-		
+
 		// Check for end of file sentry
 		if( sentry != "" && line.find(sentry) != std::string::npos ) return is;
-		
+
 		// Parse the line if it contains a delimiter
 		pos delimPos = line.find( delim );
 		if( delimPos < std::string::npos )
@@ -338,7 +339,7 @@ inline std::istream& operator>>( std::istream& is, ConfigFile& cf )
 			// Extract the key
 			std::string key = line.substr( 0, delimPos );
 			line.replace( 0, delimPos+skip, "" );
-			
+
 			// See if value continues on the next line
 			// Stop at blank line, next line with a key, end of stream,
 			// or end of file sentry
@@ -347,31 +348,31 @@ inline std::istream& operator>>( std::istream& is, ConfigFile& cf )
 			{
 				std::getline( is, nextline );
 				terminate = true;
-				
+
 				std::string nlcopy = nextline;
 				ConfigFile::trim(nlcopy);
 				if( nlcopy == "" ) continue;
-				
+
 				nextline = nextline.substr( 0, nextline.find(comm) );
 				if( nextline.find(delim) != std::string::npos )
 					continue;
 				if( sentry != "" && nextline.find(sentry) != std::string::npos )
 					continue;
-				
+
 				nlcopy = nextline;
 				ConfigFile::trim(nlcopy);
 				if( nlcopy != "" ) line += "\n";
 				line += nextline;
 				terminate = false;
 			}
-			
+
 			// Store key and value
 			ConfigFile::trim(key);
 			ConfigFile::trim(line);
 			cf.myContents[key] = line;  // overwrites if key is repeated
 		}
 	}
-	
+
 	return is;
 }
 
@@ -382,13 +383,13 @@ inline std::istream& operator>>( std::istream& is, ConfigFile& cf )
 //   + First release
 //   + Template read() access only through non-member readConfigFile()
 //   + ConfigurationFileBool is only built-in helper class
-// 
+//
 // v2.0  3 May 2002
 //   + Shortened name from ConfigurationFile to ConfigFile
 //   + Implemented template member functions
 //   + Changed default comment separator from % to #
 //   + Enabled reading of multiple-line values
-// 
+//
 // v2.1  24 May 2004
 //   + Made template specializations inline to avoid compiler-dependent linkage
 //   + Allowed comments within multiple-line values

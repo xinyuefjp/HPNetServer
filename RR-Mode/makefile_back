@@ -7,7 +7,7 @@ LIBS =
 TARGET =	RRMode
 
 $(TARGET):	$(OBJS)
-	$(CXX) -o $(TARGET) $(OBJS) $(LIBS) -lpthread -llog4cxx -lboost_system -lboost_filesystem -levent -Wl,-rpath,/usr/local/lib
+	$(CXX) -o $(TARGET) $(OBJS) $(LIBS) -llog4cxx -lboost_system -lboost_filesystem -levent -Wl,-rpath,/usr/local/lib
 
 all:	$(TARGET)
 

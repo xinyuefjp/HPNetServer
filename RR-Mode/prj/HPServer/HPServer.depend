@@ -1,0 +1,72 @@
+# depslib dependency file v1.0
+1556417477 source:/home/ubuntu/HPNetServer/RR-Mode/prj/HPServer/init_configure.cc
+	"init_configure.h"
+	"config_file.h"
+	"utils.h"
+
+1558582748 /home/ubuntu/HPNetServer/RR-Mode/prj/HPServer/init_configure.h
+	"defines.h"
+
+1558582487 /home/ubuntu/HPNetServer/RR-Mode/prj/HPServer/defines.h
+	<assert.h>
+	<arpa/inet.h>
+	<errno.h>
+	<pthread.h>
+	<stdlib.h>
+	<string.h>
+	<boost/shared_ptr.hpp>
+	<boost/thread.hpp>
+	<boost/thread/thread.hpp>
+	<event.h>
+	<log4cxx/logger.h>
+	<log4cxx/logstring.h>
+	<log4cxx/propertyconfigurator.h>
+
+1558614314 /home/ubuntu/HPNetServer/RR-Mode/prj/HPServer/config_file.h
+	<string>
+	<map>
+	<iostream>
+	<fstream>
+	<sstream>
+	<locale>
+
+1556358973 /home/ubuntu/HPNetServer/RR-Mode/prj/HPServer/utils.h
+	<netinet/in.h>
+	<unistd.h>
+	<sys/time.h>
+	<algorithm>
+	<exception>
+	<fstream>
+	<iostream>
+	<sstream>
+	<boost/filesystem.hpp>
+
+1558582897 source:/home/ubuntu/HPNetServer/RR-Mode/prj/HPServer/main.cpp
+	<iostream>
+
+1555743132 source:/home/ubuntu/HPNetServer/RR-Mode/prj/HPServer/worker_threads.cc
+	"worker_threads.h"
+	"global_settings.h"
+	"utils.h"
+	"socket_wrapper.h"
+
+1555743132 /home/ubuntu/HPNetServer/RR-Mode/prj/HPServer/worker_threads.h
+	<vector>
+	<boost/thread.hpp>
+	"defines.h"
+	"threadSafe_container.h"
+
+1555743132 /home/ubuntu/HPNetServer/RR-Mode/prj/HPServer/threadSafe_container.h
+	<boost/thread.hpp>
+	<list>
+
+1556365838 /home/ubuntu/HPNetServer/RR-Mode/prj/HPServer/global_settings.h
+
+1555743132 /home/ubuntu/HPNetServer/RR-Mode/prj/HPServer/socket_wrapper.h
+	<arpa/inet.h>
+	<fcntl.h>
+	<netinet/in.h>
+	<netinet/tcp.h>
+	<sys/socket.h>
+	<sys/types.h>
+

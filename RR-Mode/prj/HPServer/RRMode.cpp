@@ -16,7 +16,7 @@ int main(void)
 	InitConfigure();
 	// 用户输入
 	SettingsAndPrint();
-	
+
 	if (signal(SIGUSR1, SigUsr) == SIG_ERR )
 	{
 		LOG4CXX_FATAL(g_logger, "Configure signal failed.");
@@ -30,7 +30,7 @@ int main(void)
 
 void Run()
 {
-	// 主线程
+	// 主线程对象
 	CMasterThread masterThread;
 	if(!masterThread.InitMasterThread())
 	{
@@ -80,9 +80,9 @@ void SettingsAndPrint()
 	utils::G<CGlobalSettings>().remote_listen_port_ = utils::G<ConfigFile>().read<int> ("remote.listen.port", 12006); // 设置监听的端口
 	utils::G<CGlobalSettings>().thread_num_ = utils::G<ConfigFile>().read<int> ("worker.thread.num", 4); // 设置线程数量
 	utils::G<CGlobalSettings>().client_heartbeat_timeout_ = utils::G<ConfigFile>().read<int>("client.heartbeat.timeout.s", 70); // 设置心跳包的最大时间间隔
-	
+
 	// 下面是装逼的使用*****来显示用户的输入
-	LOG4CXX_INFO(g_logger, "******remote.listen.port=" << utils::G<CGlobalSettings>().remote_listen_port_ << "******"); 
+	LOG4CXX_INFO(g_logger, "******remote.listen.port=" << utils::G<CGlobalSettings>().remote_listen_port_ << "******");
 	LOG4CXX_INFO(g_logger, "******worker.thread.num =" << utils::G<CGlobalSettings>().thread_num_ << "******");
 	LOG4CXX_INFO(g_logger, "******client.heartbeat.timeout.s =" << utils::G<CGlobalSettings>().client_heartbeat_timeout_ << "******");
 }
