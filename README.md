@@ -8,9 +8,9 @@ highPerformanceNetworkServer
   
 * **支持平台**: x86-64 linux  
 * **开发语言**: C++  
-* **开发平台**: CentOS release 6.3 
-* **linux内核版本**: 2.6.32-279.el6.x86_64 
-* **gcc 版本**: 4.4.6
+* **开发平台**: ubuntu release 17.10
+* **linux内核版本**: 4.13.0-46-generic 
+* **gcc 版本**: 7.2.0
 * **[libevent](http://libevent.org/)版本**: 2.0.21
 
 **测试结果**:
